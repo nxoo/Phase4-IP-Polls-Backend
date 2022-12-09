@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+  #before_action :authentication
 
   def index
     render json: Question.all
@@ -7,17 +8,17 @@ class QuestionsController < ApplicationController
 
   def show
     question = Question.find(params[:id])
-    render json: question
+    render json: question, include: :choices
   end
 
   def create
-    question = Question.create(params.require(:question).permit(:name, :super_name))
+    question = Question.create(params.permit(:question, :user_id))
     render json: question
   end
 
   def update
     question = Question.find(params[:id])
-    question.update(params.require(:question).permit(:name, :super_name))
+    question.update(params.permit(:question, :user_id))
     render json: question
   end
 

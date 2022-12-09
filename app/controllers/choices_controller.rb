@@ -11,13 +11,13 @@ class ChoicesController < ApplicationController
   end
 
   def create
-    choice = Choice.create(params.require(:choice).permit(:name, :super_name))
+    choice = Choice.create(params.permit(:choice, :votes, :question_id))
     render json: choice
   end
 
   def update
     choice = Choice.find(params[:id])
-    choice.update(params.require(:choice).permit(:name, :super_name))
+    choice.update(params.permit(:choice, :votes, :question_id))
     render json: choice
   end
 
