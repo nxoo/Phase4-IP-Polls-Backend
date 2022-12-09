@@ -12,17 +12,20 @@
 
 ActiveRecord::Schema.define(version: 2022_12_09_125100) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "choices", force: :cascade do |t|
-    t.integer "question_id"
+    t.bigint "question_id"
     t.string "choice"
-    t.integer "votes"
+    t.integer "votes", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_choices_on_question_id"
   end
 
   create_table "questions", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "question"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
