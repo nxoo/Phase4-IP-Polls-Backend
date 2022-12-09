@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
   post "/login", to: "sessions#login"
   post "/signup", to: "sessions#signup"
   resources :questions, only: [:create, :index, :show, :update, :destroy]
